@@ -93,13 +93,20 @@ button {
   }
   .btn-light{
       background: none;
+      border: 1px solid $color-base;
       color: $color-base;
       &:hover{
-          background: none;
-          font-weight: bold;
+          color: #fff;
       }
   }
-  /*.btn-add:hover{cursor: not-allowed;}*/
+.btn-add{
+    background: $color-third;
+    border-radius: 0;
+    padding: 10px;
+    &:hover{
+        background: lighten($color-third, 10%);
+    }
+}
   .btn-close {
     background: red;
     color: #fff;

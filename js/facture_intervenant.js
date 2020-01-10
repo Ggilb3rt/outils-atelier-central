@@ -8,10 +8,10 @@ function addGroupe(){
     <label for="label${counter}">Étiquette</label>
     <input type="text" name="label${counter}" id="label${counter}">
     <label for="nbTrim${counter}">Nombres d'élèves</label>
-    <input type="number" name="nbTrim${counter}" id="nbTrim${counter}">
+    <input type="number" min="0" name="nbTrim${counter}" id="nbTrim${counter}">
     <br>
     <label for="prixTrim${counter}">Prix</label>
-    <input type="number" name="prixTrim${counter}" id="prixTrim${counter}">
+    <input type="number" min="0" name="prixTrim${counter}" id="prixTrim${counter}">
     <button class="btn-close" onclick="removeGroupe()">Supprimer le groupe d'élèves</button>
 </div>`;
     document.getElementById('more-0').insertAdjacentHTML('afterend', text);
@@ -92,7 +92,7 @@ function createTable(counter){
 }
 
 /*
- * Validation du formulaire
+ * Création du PDF
  */
 function valide(fullname, adresse, email){
     document.getElementById("feedback").classList.remove("noOpacity");
@@ -179,4 +179,7 @@ function valide(fullname, adresse, email){
         }
     };
     pdfMake.createPdf(docDefinition).download(`Facture-${fullname}-${date.toLocaleString([], {year: "numeric", month: "long", day: "numeric"})}.pdf`);
+    setTimeout(function(){
+        document.getElementById("feedback").classList.add("noOpacity");
+    }, 3000);
 }

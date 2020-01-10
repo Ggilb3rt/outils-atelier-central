@@ -91,14 +91,22 @@ button:hover {
 
 .btn-light {
   background: none;
+  border: 1px solid #860839;
   color: #860839;
 }
 .btn-light:hover {
-  background: none;
-  font-weight: bold;
+  color: #fff;
 }
 
-/*.btn-add:hover{cursor: not-allowed;}*/
+.btn-add {
+  background: #dbbd87;
+  border-radius: 0;
+  padding: 10px;
+}
+.btn-add:hover {
+  background: #e7d3ae;
+}
+
 .btn-close {
   background: red;
   color: #fff;

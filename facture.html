@@ -28,26 +28,26 @@
         <div class="content">
             <h2>Pour les élèves inscrits à l'année (facturation au trimestre)</h2>
             <label for="nb">Nombres d'élèves</label>
-            <input type="number" name="nb" id="nb">
+            <input type="number" name="nb" id="nb" min="0">
             <br>
             <label for="prixAn">Prix par an</label>
-            <input type="number" name="prixAn" id="prixAn">
+            <input type="number" name="prixAn" id="prixAn" min="0">
         </div>
         <div class="content" id="more-0">
             <h2>Pour les élèves inscrits autrement (facturation unique)</h2>
             <label for="label0">Étiquette</label>
             <input type="text" name="label0" id="label0">
             <label for="nbTrim0">Nombres d'élèves</label>
-            <input type="number" name="nbTrim0" id="nbTrim0">
+            <input type="number" name="nbTrim0" id="nbTrim0" min="0">
             <br>
             <label for="prixTrim0">Prix</label>
-            <input type="number" name="prixTrim0" id="prixTrim0">
+            <input type="number" name="prixTrim0" id="prixTrim0" min="0">
             <button class="btn-add" onclick="addGroupe()">Ajouter un groupe d'élèves</button>
         </div>
     </div>
     <button class="btn" onclick="valide(fullname.value, adresse.value, email.value)">Valider</button>
     <h2 id="feedback" class="noOpacity">En cours...</h2>
-    <footer><p>Création Guillaume Gilbert - Version alpha public 0.2.1 - En cas de problème contactez moi</p></footer>
+    <footer><p>Création Guillaume Gilbert - Version beta privé 0.3.0 - En cas de problème contactez moi</p></footer>
     <script src="js/facture_intervenant.js"></script>
 </body>
 </html>
