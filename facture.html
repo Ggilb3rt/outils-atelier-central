@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+
+    <script src='js/pdfmake.min.js'></script>
+    <script src='js/vfs_fonts.js'></script>
+
+    <title>Générateur de factures intervenant</title>
+</head>
+<body>
+    <h1>Générateur de facture pour les intervenants de l'atelier central</h1>
+    <div class="wraper">
+        <div class="content">
+            <h2>Vos informations personnelles</h2>
+            <label for="fullname">Nom et prénom</label>
+            <input type="text" name="fullname" id="fullname">
+            <br>
+            <label for="adress">Adresse</label>
+            <input type="text" name="adresse" id="adresse">
+            <br>
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email">
+        </div>
+        <div class="content">
+            <h2>Pour les élèves inscrits à l'année (facturation au trimestre)</h2>
+            <label for="nb">Nombres d'élèves</label>
+            <input type="number" name="nb" id="nb">
+            <br>
+            <label for="prixAn">Prix par an</label>
+            <input type="number" name="prixAn" id="prixAn">
+        </div>
+        <div class="content" id="more-0">
+            <h2>Pour les élèves inscrits autrement (facturation unique)</h2>
+            <label for="label0">Étiquette</label>
+            <input type="text" name="label0" id="label0">
+            <label for="nbTrim0">Nombres d'élèves</label>
+            <input type="number" name="nbTrim0" id="nbTrim0">
+            <br>
+            <label for="prixTrim0">Prix</label>
+            <input type="number" name="prixTrim0" id="prixTrim0">
+            <button class="btn-add" onclick="addGroupe()">Ajouter un groupe d'élèves</button>
+        </div>
+    </div>
+    <button class="btn" onclick="valide(fullname.value, adresse.value, email.value)">Valider</button>
+    <h2 id="feedback" class="noOpacity">En cours...</h2>
+    <footer><p>Création Guillaume Gilbert - Version alpha public 0.2.1 - En cas de problème contactez moi</p></footer>
+    <script src="js/facture_intervenant.js"></script>
+</body>
+</html>
