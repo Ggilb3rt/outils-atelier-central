@@ -1,9 +1,30 @@
 var counter = 0;
+var counterYear = 0;
 const pourcent = 13;
+
+function addGroupeYear(){
+    counterYear++;
+    var text = `<div class="content type-year" id="year-${counterYear}">
+    <h2>Pour les élèves inscrits à l'année (facturation au trimestre)</h2>
+    <label for="labelYear${counterYear}">Étiquette</label>
+    <input type="text" name="labelYear${counterYear}" id="labelYear${counterYear}">
+    <label for="nb${counterYear}">Nombres d'élèves</label>
+    <input type="number" name="nb${counterYear}" id="nb${counterYear}" min="0">
+    <br>
+    <label for="prixAn${counterYear}">Prix par an</label>
+    <input type="number" name="prixAn${counterYear}" id="prixAn${counterYear}" min="0">
+    <button class="btn-close" onclick="removeGroupeYear()">Supprimer le groupe d'élèves</button>
+</div>`;
+document.getElementById('more-0').insertAdjacentHTML('afterend', text);
+}
+function removeGroupeYear(){
+    document.getElementById(`year-${counterYear}`).remove();
+    counterYear--;
+}
 
 function addGroupe(){
     counter++;
-    var text = `<div class="content" id="more-${counter}">
+    var text = `<div class="content type-unique" id="more-${counter}">
     <h2>Pour les élèves inscrits autrement (facturation unique)</h2>
     <label for="label${counter}">Étiquette</label>
     <input type="text" name="label${counter}" id="label${counter}">
@@ -45,49 +66,63 @@ function twoDigitRound(prix){
 function createTable(counter){
     let i = 0;
     let j = 0;
+    let k = 0;
     let baseTab = [];
     let sommeSousTotal = 0;
 
-    let nbStudentYear = document.getElementById('nb').value;
-    let prixStudentYear = document.getElementById('prixAn').value;
+    // let nbStudentYear = document.getElementById('nb0').value;
+    // let prixStudentYear = document.getElementById('prixAn0').value;
 
     baseTab[i++] = [{text: 'Désignation', style: 'tableHeader', alignment: 'center'}, {text: 'Quantité', style: 'tableHeader', alignment: 'center'}];
-    if (nbStudentYear > 0)
+    // if (nbStudentYear > 0)
+    // {
+    //     const prixTrimestre = prixStudentYear / 3;
+    //     const total = calcSubTotal(nbStudentYear, prixTrimestre);
+
+    //     baseTab[i++] = [{text: 'Élèves inscrits à l’année (prix/trimestre)', fillColor: '#eca48b'}, {text: twoDigitRound(prixTrimestre), fillColor: '#eca48b'}];
+    //     baseTab[i++] = [{text: 'Rétrocession 13% par élèves', fillColor: '#ffd4c5'}, {text: calcPourcent(prixTrimestre), fillColor: '#ffd4c5'}];
+    //     baseTab[i++] = [{text: "Nombre d'élèves", fillColor: '#ffd4c5'}, {text: nbStudentYear, fillColor: '#ffd4c5'}];
+    //     baseTab[i++] = [{text: "sous total", italics: true, alignment: 'right', fillColor: '#ffd4c5'}, {text: total, alignment: 'right', fillColor: '#ffd4c5', bold: true}];
+    //     sommeSousTotal = total;
+    // }
+    while(j <= counterYear)
     {
-        const prixTrimestre = prixStudentYear / 3;
-        const total = calcSubTotal(nbStudentYear, prixTrimestre);
+        var currentNbStudentYear = document.getElementById(`nb${j}`).value;
+        var currentPrixStudentYear = document.getElementById(`prixAn${j}`).value;
+        if(currentNbStudentYear > 0 && currentPrixStudentYear > 0){
+            var currentLabelYear = document.getElementById(`labelYear${j}`).value;
+            var currentPrixTrimestre = currentPrixStudentYear / 3;
+            var currentTotal = calcSubTotal(currentNbStudentYear, currentPrixTrimestre);
 
-        baseTab[i++] = [{text: 'Élèves inscrits à l’année (prix/trimestre)', fillColor: '#eca48b'}, {text: twoDigitRound(prixTrimestre), fillColor: '#eca48b'}];
-        baseTab[i++] = [{text: 'Rétrocession 13% par élèves', fillColor: '#ffd4c5'}, {text: calcPourcent(prixTrimestre), fillColor: '#ffd4c5'}];
-        baseTab[i++] = [{text: "Nombre d'élèves", fillColor: '#ffd4c5'}, {text: nbStudentYear, fillColor: '#ffd4c5'}];
-        baseTab[i++] = [{text: "sous total", italics: true, alignment: 'right', fillColor: '#ffd4c5'}, {text: total, alignment: 'right', fillColor: '#ffd4c5', bold: true}];
-        sommeSousTotal = total;
-    }
-
-    while(j <= counter)
-    {
-        var currentNbStudent = document.getElementById(`nbTrim${j}`).value;
-        var currentPrix = document.getElementById(`prixTrim${j}`).value;
-        if(currentNbStudent > 0 && currentPrix > 0){
-            var currentLabel = document.getElementById(`label${j}`).value;
-            var currentTotal = calcSubTotal(currentNbStudent, currentPrix);
-
-            baseTab[i+j] = [{text: `Élèves inscrits pour "${currentLabel}"`, fillColor: '#8becd6'}, {text: currentPrix, fillColor: '#8becd6'}];
-            baseTab[i+j+1] = [{text: 'Rétrocession 13% par élèves', fillColor: '#b9ffef'}, {text: calcPourcent(currentPrix), fillColor: '#b9ffef'}];
-            baseTab[i+j+2] = [{text: "Nombre d'élèves", fillColor: '#b9ffef'}, {text: currentNbStudent, fillColor: '#b9ffef'}];
-            baseTab[i+j+3] = [{text: "sous total", italics: true, alignment: 'right', fillColor: '#b9ffef'}, {text: currentTotal, alignment: 'right', fillColor: '#b9ffef', bold: true}];
+            baseTab[i+j] = [{text: `Prix pour "${currentLabelYear}" par trimestre`, fillColor: '#eca48b'}, {text: twoDigitRound(currentPrixTrimestre), fillColor: '#eca48b'}];
+            baseTab[i+j+1] = [{text: 'Rétrocession 13% par élèves', fillColor: '#ffd4c5'}, {text: calcPourcent(currentPrixTrimestre), fillColor: '#ffd4c5'}];
+            baseTab[i+j+2] = [{text: "Nombre d'élèves", fillColor: '#ffd4c5'}, {text: currentNbStudentYear, fillColor: '#ffd4c5'}];
+            baseTab[i+j+3] = [{text: "sous total", italics: true, alignment: 'right', fillColor: '#ffd4c5'}, {text: currentTotal, alignment: 'right', fillColor: '#ffd4c5', bold: true}];
             i = i+3;
             sommeSousTotal += currentTotal;
         }
         j++;
     }
-    if (j == 1 && counter == 0 && !(currentNbStudent > 0 && currentPrix > 0))
+    while(k <= counter)
     {
-        baseTab[i] = [{text: 'Total en €', italics: true, alignment: 'right'}, {text: sommeSousTotal, style: 'tableHeader', alignment: 'right'}];
+        if (j == 1 && currentNbStudentYear <= 0){j = 0;}
+        var currentNbStudent = document.getElementById(`nbTrim${k}`).value;
+        var currentPrix = document.getElementById(`prixTrim${k}`).value;
+        if(currentNbStudent > 0 && currentPrix > 0){
+            var currentLabel = document.getElementById(`label${k}`).value;
+            var currentTotal = calcSubTotal(currentNbStudent, currentPrix);
+
+            baseTab[i+j+k] = [{text: `Élèves inscrits pour "${currentLabel}"`, fillColor: '#8becd6'}, {text: currentPrix, fillColor: '#8becd6'}];
+            baseTab[i+j+k+1] = [{text: 'Rétrocession 13% par élèves', fillColor: '#b9ffef'}, {text: calcPourcent(currentPrix), fillColor: '#b9ffef'}];
+            baseTab[i+j+k+2] = [{text: "Nombre d'élèves", fillColor: '#b9ffef'}, {text: currentNbStudent, fillColor: '#b9ffef'}];
+            baseTab[i+j+k+3] = [{text: "sous total", italics: true, alignment: 'right', fillColor: '#b9ffef'}, {text: currentTotal, alignment: 'right', fillColor: '#b9ffef', bold: true}];
+            i = i+3;
+            sommeSousTotal += currentTotal;
+        }
+        k++;
     }
-    else{
-        baseTab[i+j] = [{text: 'Total en €', italics: true, alignment: 'right'}, {text: twoDigitRound(sommeSousTotal), style: 'tableHeader', alignment: 'right'}];
-    }
+    if(k == 1 && currentNbStudent <=0){k = 0;}
+        baseTab[i+j+k] = [{text: 'Total en €', italics: true, alignment: 'right'}, {text: twoDigitRound(sommeSousTotal), style: 'tableHeader', alignment: 'right'}];
     return (baseTab);
 }
 

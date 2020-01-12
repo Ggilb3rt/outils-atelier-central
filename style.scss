@@ -138,6 +138,16 @@ button {
     }
 }
 
+.type-year, .type-unique{
+    h2{border-bottom: 5px solid;}
+}
+.type-year{
+    h2{border-color: #eca48b;}
+}
+.type-unique{
+    h2{border-color: #8becd6;}
+}
+
 input {
   margin-bottom: 2em;
   width: 95%;
