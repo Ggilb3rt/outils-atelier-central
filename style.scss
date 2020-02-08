@@ -44,7 +44,7 @@ $elements: 4;
 .content {
     margin: 1em auto;
     padding: 0 10px;
-    width: 20em;
+    width: 30em;
 
     @for $i from 0 to $elements {
         &:nth-child(#{$i}) {
@@ -65,6 +65,10 @@ $elements: 4;
     }
     i.fas{
         color: $color-base;
+    }
+    img{
+        max-width: 100%;
+        max-height: 248px;
     }
 }
 /*
